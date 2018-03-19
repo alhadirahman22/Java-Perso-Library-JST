@@ -1,0 +1,1 @@
+PersoImplement(path,filename,delimiter,split,tempSimpan,FolderName)
