@@ -33,21 +33,23 @@ public class PersoImplement implements PersoInterface {
     private String delimiter;
     private List<String> Data;
     private String[] arrHeaderCol;   
+    private String FolderName;
     
-    public PersoImplement(String path,String filename,String delimiter,int split, List<String> Data)
+    public PersoImplement(String path,String filename,String delimiter,int split, List<String> Data,String FolderName)
     {
        this.path = path;  
        this.filename = filename;
        this.delimiter = delimiter;
        this.split_PerFile = split;
        this.Data = Data;
+       this.FolderName = FolderName;
     }
 
     @Override
     public void exportTXT() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         // create directory per filename 
-        boolean CreatePathFolder = (new File(path + "\\"+"PERSO"+"\\"+filename+"_txtFiles")).mkdirs();
+        boolean CreatePathFolder = (new File(path + "\\"+FolderName+"\\"+filename+"_txtFiles")).mkdirs();
         
         int totalData = Data.size();
         int Splitbagi = split_PerFile;
@@ -62,7 +64,7 @@ public class PersoImplement implements PersoInterface {
                     Splitbagi = split2;    
                 }
             FileWriter outFile;
-            File dstFile = new File(path + "\\"+"PERSO"+"\\"+filename+"_txtFiles"+"\\"+filename+"_"+j+".txt");
+            File dstFile = new File(path + "\\"+FolderName+"\\"+filename+"_txtFiles"+"\\"+filename+"_"+j+".txt");
             try {
                 outFile = new FileWriter(dstFile.getPath());
                 PrintWriter writer = new PrintWriter(outFile);
@@ -88,7 +90,7 @@ public class PersoImplement implements PersoInterface {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (this.arrHeaderCol.length > 0) {
             
-            boolean CreatePathFolder = (new File(path + "\\"+"PERSO"+"\\"+filename+"_excelFiles")).mkdirs();
+            boolean CreatePathFolder = (new File(path + "\\"+FolderName+"\\"+filename+"_excelFiles")).mkdirs();
             int totalData = Data.size();
             int Splitbagi = split_PerFile;
             int split = totalData/Splitbagi;
@@ -97,7 +99,7 @@ public class PersoImplement implements PersoInterface {
                 split++;
             }
             int startTake_row = 0;
-            String directoryPerso = path + "\\"+"PERSO"+"\\"+filename+"_excelFiles"+"\\";
+            String directoryPerso = path + "\\"+FolderName+"\\"+filename+"_excelFiles"+"\\";
             for (int j = 1; j < split + 1; j++) {
                 XSSFWorkbook xlsxWorkbook=new XSSFWorkbook();
                 XSSFSheet sheetxlsxWorkbook=xlsxWorkbook.createSheet("Result");
